@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/pwa-192x192.png?v=999" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Antigravity" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>BARBER KING</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#dc2626",
+              "background-dark": "var(--bg-dark)",
+              "card-dark": "var(--card-dark)",
+              "border-dark": "var(--border-dark)",
+              "border-subtle": "var(--border-subtle)",
+              "success-green": "#22C55E",
+              "warning-amber": "#F59E0B",
+              "danger-red": "#EF4444",
+              "purple-royal": "#8B5CF6",
+              "teal-cyan": "#06B6D4",
+            },
+            fontFamily: {
+              "display": ["'Inter'", "sans-serif"],
+              "sans": ["'Plus Jakarta Sans'", "sans-serif"],
+              "manrope": ["'Manrope'", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "2xl": "1rem",
+              "3xl": "1.5rem"
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --bg-dark: #fbfbfc;
+        --card-dark: #ffffff;
+        --border-dark: #f1f5f9;
+        --border-subtle: #e2e8f0;
+        --text-base: #1e293b;
+        --text-muted: #64748b;
+      }
+      .dark {
+        --bg-dark: #000000;
+        --card-dark: #0A0A0A;
+        --border-dark: #1A1A1A;
+        --border-subtle: #2A2A2A;
+        --text-base: #ffffff;
+        --text-muted: #9ca3af;
+      }
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-base);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Light Mode Text Overrides (Blindando o sistema existente) */
+      :root:not(.dark) .text-white,
+      :root:not(.dark) .text-slate-50,
+      :root:not(.dark) .text-slate-100,
+      :root:not(.dark) .text-slate-200 {
+        color: var(--text-base) !important;
+      }
+      
+      :root:not(.dark) .text-slate-300,
+      :root:not(.dark) .text-slate-400,
+      :root:not(.dark) .text-slate-500 {
+        color: var(--text-muted) !important;
+      }
+
+      :root:not(.dark) .hover\:text-white:hover {
+        color: var(--text-base) !important;
+      }
+
+      /* Preservar a cor branca real dentro de botões primários/status no Light Mode */
+      :root:not(.dark) .bg-primary.text-white,
+      :root:not(.dark) .bg-success-green.text-white,
+      :root:not(.dark) .bg-danger-red.text-white,
+      :root:not(.dark) .bg-warning-amber.text-white,
+      :root:not(.dark) .group:hover .group-hover\:text-white {
+        color: #ffffff !important;
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .material-symbols-outlined.filled {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        border-color: rgba(220, 38, 38, 0.3);
+      }
+      .loyalty-progress-gradient {
+        background: linear-gradient(90deg, #dc2626 0%, #f87171 100%);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f8fafc;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      
+      html.dark ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      html.dark ::-webkit-scrollbar-thumb {
+        background: #2A2A2A;
+      }
+      html.dark ::-webkit-scrollbar-thumb:hover {
+        background: #333;
+      }
+      
+      :root:not(.dark) .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f8fafc;
+      }
+      :root:not(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+      }
+      :root:not(.dark) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      /* Custom Brand Symbol Styling - Razor Only */
+      .brand-symbol-container {
+        position: relative;
+        overflow: hidden;
+      }
+      .brand-symbol-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top; /* Focus on the razor handle and blade */
+        transform: scale(1.6); /* Zoom in to exclude bottom text */
+      }
+      
+      /* Efeitos Especiais da Hero */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+      }
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-400 { animation-delay: 400ms; }
+      .delay-500 { animation-delay: 500ms; }
+      .delay-600 { animation-delay: 600ms; }
+      .delay-700 { animation-delay: 700ms; }
+
+      @keyframes shine {
+        0%, 10% { left: -100%; }
+        30%, 100% { left: 125%; }
+      }
+      .animate-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .animate-shine::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-20deg);
+        animation: shine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        pointer-events: none;
+      }
+
+      .glow-primary {
+        box-shadow: 0 0 15px rgba(220,38,38,0.3);
+      }
+      .glow-primary:hover {
+        box-shadow: 0 0 35px rgba(220,38,38,0.8);
+      }
+      
+      .glow-red {
+        box-shadow: 0 0 15px rgba(220,38,38,0.3);
+      }
+      .glow-red:hover {
+        box-shadow: 0 0 35px rgba(220,38,38,0.8);
+      }
+
+      @keyframes breath {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.1); }
+      }
+      .animate-breath {
+        animation: breath 8s ease-in-out infinite;
+      }
+      
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-100%); }
+      }
+      .animate-marquee {
+        animation: marquee 25s linear infinite;
+        display: inline-flex;
+        align-items: center;
+        width: max-content;
+      }
+      .hover-pause:hover .animate-marquee {
+        animation-play-state: paused;
+      }
+
+      /* ── Mobile Bottom Nav helpers ── */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Garante que o conteúdo das páginas admin não fique atrás da bottom nav no mobile */
+      @media (max-width: 1023px) {
+        body {
+          padding-bottom: 120px;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

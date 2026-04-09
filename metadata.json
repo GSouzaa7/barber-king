@@ -1,0 +1,7 @@
+{
+  "name": "Protótipo BARBER KING",
+  "description": "A comprehensive grooming management platform featuring distinct portals for clients, barbers, and managers to handle scheduling, payments, and business operations for BARBER KING.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

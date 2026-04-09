@@ -1,0 +1,100 @@
+# Artefatos de reescrita de histórico git
+.git-rewrite/
+
+# Diretórios internos do Claude Code e agentes locais
+.claude/
+aios-fullstack-squad/
+
+# Arquivos binários grandes
+*.mp4
+*.mov
+*.avi
+
+# Scripts utilitários soltos
+final_cleanup.cjs
+generate_pwa_icons.cjs
+
+# Scripts de patch dentro de pages/admin (não são código fonte)
+pages/admin/update*.cjs
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+dev-dist
+*.local
+
+# Secrets — nunca versionar
+.env
+.env.*
+!.env.example
+
+# Scripts de diagnóstico/debug (nunca versionar — leem credenciais do .env)
+check_*.cjs
+check_*.mjs
+check_*.js
+debug_*.mjs
+debug_*.cjs
+cleanup_*.cjs
+cleanup_*.mjs
+create_test*.cjs
+delete_*.cjs
+find_*.cjs
+find_*.mjs
+deep_diagnostic.cjs
+diagnostic.cjs
+inativar.cjs
+inspect_*.cjs
+inspect_*.mjs
+get_profs.cjs
+test_*.cjs
+test_*.mjs
+test_*.js
+updateProfile.js
+mutator*.js
+count_all_tables.cjs
+
+# Scripts de patch/fix soltos (nunca versionar)
+fix-*.cjs
+fix-*.js
+fix_*.cjs
+fixAgenda*.cjs
+fixColors.cjs
+fixLight*.cjs
+fixTable*.cjs
+fix*.cjs
+refactor*.cjs
+refactor*.js
+applyAnimations.cjs
+migrat*.cjs
+mudaCores.cjs
+mutar.cjs
+patch_*.cjs
+run_all_patches.cjs
+transplant*.cjs
+updateSuppliers*.cjs
+
+# Arquivos de erro e output temporários
+*.txt
+!README.txt
+build_error.log
+build_output.txt
+errors*.txt
+error*.txt
+ts_error.txt
+typescript_errors.txt
+temp_*.txt
+log.txt
+git_diff.txt
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.jso
