@@ -83,9 +83,11 @@ const RequireApproval: React.FC<{ children: React.ReactElement }> = ({ children 
 };
 
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import ConfigGuard from './components/ConfigGuard';
 
 const App: React.FC = () => {
   return (
+    <ConfigGuard>
     <HashRouter>
       <AuthProvider>
         <MatrizProvider>
@@ -162,6 +164,7 @@ const App: React.FC = () => {
         </MatrizProvider>
       </AuthProvider>
     </HashRouter>
+    </ConfigGuard>
   );
 };
 

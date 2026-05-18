@@ -22,6 +22,13 @@ const Landing: React.FC = () => {
   const [matrizes, setMatrizes] = useState<Matriz[]>([]);
   const [loadingMatrizes, setLoadingMatrizes] = useState(true);
 
+  const revealHero = () => setIsVideoLoaded(true);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(revealHero, 2000);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   useEffect(() => {
     const fetchMatrizes = async () => {
       const { data } = await supabase
@@ -93,7 +100,8 @@ const Landing: React.FC = () => {
                 loop
                 muted
                 playsInline
-                onLoadedData={() => setIsVideoLoaded(true)}
+                onLoadedData={revealHero}
+                onError={revealHero}
                 className={`w-full h-full object-cover object-[55%_25%] md:object-center transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
                 src={HERO_VIDEO_SRC}
               />
