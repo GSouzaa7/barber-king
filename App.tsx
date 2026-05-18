@@ -29,6 +29,7 @@ import AdminSettings from './pages/admin/Settings';
 import AdminMatrizes from './pages/admin/Matrizes';
 
 import AdminLogin from './pages/auth/AdminLogin';
+import AdminResetPassword from './pages/auth/AdminResetPassword';
 import AdminSetup from './pages/auth/AdminSetup';
 import BarberLogin from './pages/auth/BarberLogin';
 import BarberRegister from './pages/auth/BarberRegister';
@@ -42,6 +43,18 @@ const ScrollToTop = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  return null;
+};
+
+/** Redireciona link de recuperação do Supabase para a rota correta (HashRouter). */
+const AuthRecoveryRedirect = () => {
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes('type=recovery') && !hash.includes('/admin/reset-password')) {
+      navigate('/admin/reset-password', { replace: true });
+    }
+  }, [navigate]);
   return null;
 };
 
@@ -89,6 +102,7 @@ const App: React.FC = () => {
   return (
     <ConfigGuard>
     <HashRouter>
+      <AuthRecoveryRedirect />
       <AuthProvider>
         <MatrizProvider>
         <ThemeProvider>
@@ -123,6 +137,7 @@ const App: React.FC = () => {
 
               {/* Admin Portal */}
               <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/reset-password" element={<AdminResetPassword />} />
               <Route path="/admin/setup" element={<AdminSetup />} />
               <Route path="/admin/dashboard" element={<RequireAuth allowedRole="admin"><AdminDashboard /></RequireAuth>} />
               <Route path="/admin/agenda" element={<RequireAuth allowedRole="admin"><AdminAgenda /></RequireAuth>} />
