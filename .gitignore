@@ -5,10 +5,12 @@
 .claude/
 aios-fullstack-squad/
 
-# Arquivos binários grandes
+# Arquivos binários grandes (exceto hero em public/videos para deploy)
 *.mp4
 *.mov
 *.avi
+!public/videos/
+!public/videos/**
 
 # Scripts utilitários soltos
 final_cleanup.cjs

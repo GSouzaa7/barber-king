@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RazorIcon } from '../components/RazorIcon';
-import heroVideo from '@/Barber_cutting_beard_202603221207.mp4';
+/** Servido de public/videos/ — não importar .mp4 (fica fora do git por padrão e quebra o build na Vercel). */
+const HERO_VIDEO_SRC =
+  import.meta.env.VITE_HERO_VIDEO_URL || '/videos/hero.mp4';
 import { Reveal } from '../components/Reveal';
 import { TiltCard } from '../components/TiltCard';
 import { supabase } from '../lib/supabase';
@@ -93,7 +95,7 @@ const Landing: React.FC = () => {
                 playsInline
                 onLoadedData={() => setIsVideoLoaded(true)}
                 className={`w-full h-full object-cover object-[55%_25%] md:object-center transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
-                src={heroVideo}
+                src={HERO_VIDEO_SRC}
               />
             </div>
             <div className="relative z-20 w-full h-full flex flex-col items-start text-left justify-center pb-20 px-6 md:px-12 lg:px-20 xl:px-24">
