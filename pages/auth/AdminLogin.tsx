@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RazorIcon } from '../../components/RazorIcon';
+import { getAuthRedirectUrl } from '../../lib/authRedirect';
 import { supabase } from '../../lib/supabase';
 
 const SETUP_ENABLED = !!import.meta.env.VITE_ADMIN_SETUP_CODE;
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const successMessage = (location.state as { message?: string } | null)?.message;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [forgotMode, setForgotMode] = useState(false);
+  const [forgotSent, setForgotSent] = useState(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    if (!email.trim()) {
+      setError('Informe o e-mail da conta admin para receber o link.');
+      return;
+    }
+    setForgotLoading(true);
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: getAuthRedirectUrl('/admin/reset-password'),
+    });
+    setForgotLoading(false);
+    if (resetError) {
+      setError(resetError.message);
+      return;
+    }
+    setForgotSent(true);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,7 +98,17 @@ const AdminLogin: React.FC = () => {
           </div>
           
           <div className="bg-[#0a0a0a]/80 backdrop-blur-2xl border border-white/5 rounded-3xl p-8 sm:p-10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
-            <form onSubmit={handleLogin} className="space-y-6">
+            {successMessage && (
+              <div className="mb-6 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs">
+                {successMessage}
+              </div>
+            )}
+            <form onSubmit={forgotMode ? handleForgotPassword : handleLogin} className="space-y-6">
+              {forgotMode && (
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Enviaremos um link para redefinir a senha no e-mail informado abaixo.
+                </p>
+              )}
               <div>
                 <label htmlFor="email" className="block text-[10px] font-medium text-slate-400 uppercase tracking-[0.2em] mb-3">E-mail Profissional</label>
                 <div className="relative">
@@ -88,6 +123,7 @@ const AdminLogin: React.FC = () => {
                   />
                 </div>
               </div>
+              {!forgotMode && (
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <label htmlFor="password" className="block text-[10px] font-medium text-slate-400 uppercase tracking-[0.2em]">Senha</label>
@@ -107,11 +143,26 @@ const AdminLogin: React.FC = () => {
                   </button>
                 </div>
                 <div className="flex justify-end mt-3">
-                  <a href="#" className="text-xs font-medium text-slate-500 hover:text-white transition-colors tracking-wide">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setForgotMode(true);
+                      setForgotSent(false);
+                      setError('');
+                    }}
+                    className="text-xs font-medium text-slate-500 hover:text-white transition-colors tracking-wide"
+                  >
                     Esqueceu a senha?
-                  </a>
+                  </button>
                 </div>
               </div>
+              )}
+
+              {forgotSent && (
+                <p className="text-green-400 text-sm">
+                  Link enviado! Verifique sua caixa de entrada e o spam.
+                </p>
+              )}
 
               {error && (
                 <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-medium flex items-center gap-2 tracking-wide">
@@ -122,12 +173,27 @@ const AdminLogin: React.FC = () => {
 
               <button
                 type="submit"
-                disabled={loading}
+                disabled={forgotMode ? forgotLoading : loading}
                 className="w-full mt-8 py-4 bg-red-600/10 hover:bg-red-600/20 backdrop-blur-md border border-red-600/30 rounded-xl text-red-500 hover:text-white transition-all duration-500 font-medium tracking-[0.2em] text-xs uppercase glow-red flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? 'Verificando...' : 'Acessar Portal'}
+                {forgotMode
+                  ? forgotLoading ? 'Enviando...' : 'Enviar link'
+                  : loading ? 'Verificando...' : 'Acessar Portal'}
                 <span className="material-symbols-outlined text-lg">arrow_forward</span>
               </button>
+              {forgotMode && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setForgotMode(false);
+                    setForgotSent(false);
+                    setError('');
+                  }}
+                  className="w-full text-slate-500 text-xs uppercase tracking-[0.2em] hover:text-white"
+                >
+                  Voltar ao login
+                </button>
+              )}
             </form>
           </div>
           
